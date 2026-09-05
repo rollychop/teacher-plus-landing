@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Happy Teacher's Day, Pris! 🍎</title>
+<meta name="description" content="A 3D animated tribute for Teacher's Day, drawn entirely with Canvas for an amazing teacher — Pris."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:ital,wght@0,300;0,400;0,600;0,800;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --gold:#ffd166; --pink:#ff6b9d; --violet:#a78bfa; --cyan:#67e8f9;
+  --card:rgba(255,255,255,.055); --line:rgba(255,255,255,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Poppins',system-ui,sans-serif;color:#f5f2ff;min-height:100vh;overflow-x:hidden;
+  background:
+    radial-gradient(1200px 700px at 80% -10%, rgba(167,139,250,.25), transparent 60%),
+    radial-gradient(900px 600px at -10% 110%, rgba(255,107,157,.18), transparent 60%),
+    linear-gradient(160deg,#181038 0%,#241640 45%,#120c2b 100%);
+}
+::selection{background:var(--gold);color:#2a1c00}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:60;pointer-events:none}
+.wrap{position:relative;z-index:1}
+
+/* ---------- NAV ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:14px 5vw;background:rgba(18,12,40,.45);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.08)}
+.logo{font-family:'Great Vibes',cursive;font-size:1.9rem;color:var(--gold);text-decoration:none;text-shadow:0 0 18px rgba(255,209,102,.5)}
+.logo span{font-family:'Poppins';font-size:.65rem;letter-spacing:.25em;text-transform:uppercase;color:#cbb8ff;margin-left:10px;vertical-align:middle}
+.links a{color:#e6ddff;text-decoration:none;margin-left:26px;font-size:.9rem;font-weight:400;opacity:.85;transition:.3s}
+.links a:hover{color:var(--gold);opacity:1}
+
+/* ---------- HERO ---------- */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:110px 6vw 60px}
+.badge{display:inline-block;padding:8px 22px;border:1px solid rgba(255,209,102,.45);border-radius:999px;font-size:.8rem;
+  letter-spacing:.28em;text-transform:uppercase;color:#ffe3a0;background:rgba(255,209,102,.07);animation:pulseGlow 3s ease-in-out infinite}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 8px rgba(255,209,102,.15)}50%{box-shadow:0 0 26px rgba(255,209,102,.45)}}
+.hero h1{margin-top:26px;font-weight:800;font-size:clamp(2.6rem,7.5vw,5.6rem);line-height:1.02;letter-spacing:.02em;
+  background:linear-gradient(90deg,#ffd166,#ff6b9d,#a78bfa,#67e8f9,#ffd166);background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s linear infinite;
+  text-shadow:0 10px 60px rgba(0,0,0,.35)}
+@keyframes shimmer{to{background-position:300% 0}}
+.to-line{margin-top:18px;font-size:clamp(1rem,2.2vw,1.35rem);color:#e9e2ff;font-weight:300}
+.name{font-family:'Great Vibes',cursive;font-size:clamp(3.4rem,9vw,6.6rem);line-height:1;display:inline-block;margin-left:8px;
+  background:linear-gradient(180deg,#fff3c4,#ffd166 55%,#ff9e64);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 22px rgba(255,209,102,.45));animation:floaty 4.5s ease-in-out infinite}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-12px) rotate(1.5deg)}}
+.sub{max-width:640px;margin:26px auto 0;color:#cfc6ee;font-weight:300;line-height:1.8;font-size:clamp(.92rem,1.6vw,1.05rem)}
+.cta{margin-top:38px;display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.btn{font-family:'Poppins';font-size:.95rem;font-weight:600;padding:14px 32px;border-radius:999px;cursor:pointer;text-decoration:none;
+  transition:transform .25s ease,box-shadow .25s ease;border:none}
+.btn:hover{transform:translateY(-3px) scale(1.03)}
+.btn.primary{color:#2a1500;background:linear-gradient(135deg,#ffe29a,#ffd166 45%,#ffb14e);box-shadow:0 8px 30px rgba(255,183,77,.35)}
+.btn.primary:hover{box-shadow:0 14px 44px rgba(255,183,77,.55)}
+.btn.ghost{color:#ffe3a0;background:rgba(255,209,102,.06);border:1px solid rgba(255,209,102,.45)}
+.scroll-hint{margin-top:64px;color:#b9a8e8;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;animation:hint 2s ease-in-out infinite}
+@keyframes hint{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(8px);opacity:1}}
+
+/* ---------- RIBBON ---------- */
+.ribbon{position:relative;z-index:2;overflow:hidden;transform:rotate(-1.6deg) scale(1.03);margin:26px -30px;
+  background:linear-gradient(90deg,#ffd166,#ff9e64 40%,#ff6b9d);box-shadow:0 12px 40px rgba(0,0,0,.35)}
+.ribbon-track{display:flex;width:max-content;animation:marq 24s linear infinite}
+.ribbon-track span{padding:13px 30px;white-space:nowrap;color:#2a1500;font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:.82rem}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- SECTIONS ---------- */
+section{padding:100px 6vw}
+.sec-head{text-align:center;margin-bottom:56px}
+.sec-head .script{font-family:'Great Vibes',cursive;font-size:clamp(1.8rem,3.4vw,2.6rem);color:var(--pink)}
+.sec-head h2{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;margin-top:4px}
+.sec-head p{color:#c9bfe6;font-weight:300;margin-top:10px}
+
+/* ---------- GALLERY ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:26px;max-width:1180px;margin:0 auto;perspective:1200px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 22px 28px;text-align:center;
+  backdrop-filter:blur(10px);transition:transform .18s ease-out,box-shadow .3s,border-color .3s;transform-style:preserve-3d;will-change:transform}
+.card:hover{box-shadow:0 24px 60px rgba(120,70,220,.28);border-color:rgba(255,209,102,.4)}
+.card canvas{width:100%;height:170px;display:block}
+.card h3{font-size:1.12rem;margin-top:6px;color:#ffe9b8}
+.card p{font-size:.88rem;color:#cfc6ee;font-weight:300;line-height:1.65;margin-top:8px}
+
+/* ---------- LETTER / FLIP ---------- */
+.flip{perspective:1500px;max-width:660px;margin:0 auto;height:540px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform 1s cubic-bezier(.25,.8,.3,1)}
+.flip.flipped .flip-inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:26px;
+  border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.09),rgba(255,255,255,.03));
+  backdrop-filter:blur(14px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:44px;text-align:center;overflow:hidden}
+.face.back{transform:rotateY(180deg)}
+.face h3{font-size:1.5rem;margin-top:14px}
+.face .hint{margin-top:10px;color:#c9bfe6;font-size:.8rem;letter-spacing:.25em;text-transform:uppercase;animation:hint 2.2s ease-in-out infinite}
+.face .script{font-family:'Great Vibes',cursive;font-size:2.6rem;color:var(--gold)}
+.face .letter-text{color:#e9e2ff;font-weight:300;line-height:1.9;margin-top:16px;font-size:.98rem}
+.face .sign{margin-top:22px;font-family:'Great Vibes',cursive;font-size:1.8rem;color:var(--pink)}
+.corner{position:absolute;font-size:1.2rem;color:rgba(255,209,102,.5)}
+.c1{top:16px;left:20px}.c2{top:16px;right:20px}.c3{bottom:16px;left:20px}.c4{bottom:16px;right:20px}
+
+footer{text-align:center;padding:50px 6vw 60px;color:#b9a8e8;font-size:.88rem;font-weight:300;border-top:1px solid rgba(255,255,255,.07)}
+footer b{color:var(--gold);font-weight:600}
+footer .heart{color:#ff5d8f;font-size:1.3rem;animation:beat 1.4s ease-in-out infinite;display:inline-block}
+@keyframes beat{0%,100%{transform:scale(1)}25%{transform:scale(1.25)}40%{transform:scale(1)}}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(46px);transition:opacity .9s ease,transform .9s ease}
+.reveal.show{opacity:1;transform:none}
+
+@media (max-width:640px){
+  .links a{margin-left:14px;font-size:.8rem}
+  .flip{height:600px}
+  .face{padding:30px 24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01s !important;transition-duration:.01s !important}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+<canvas id="fx"></canvas>
+
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="logo" href="#home">Pris<span>Teacher's Day</span></a>
+    <div class="links">
+      <a href="#home">Home</a><a href="#gallery">Gallery</a><a href="#letter">Letter</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="home" class="hero">
+    <div class="badge">✨ A Teacher's Day Special ✨</div>
+    <h1>HAPPY<br>TEACHER'S DAY</h1>
+    <div class="to-line">to the most amazing teacher — <span class="name">Pris</span></div>
+    <p class="sub">For every lesson taught with love, every doubt turned into confidence,
+      and every day made brighter by your smile — this little 3D world is for you. 🍎</p>
+    <div class="cta">
+      <button id="partyBtn" class="btn primary">🎉 Celebrate Pris</button>
+      <a class="btn ghost" href="#letter">💌 Read The Letter</a>
+    </div>
+    <div class="scroll-hint">scroll ⌄</div>
+  </header>
+
+  <!-- RIBBON -->
+  <div class="ribbon">
+    <div class="ribbon-track" id="ribbonTrack"></div>
+  </div>
+
+  <!-- GALLERY -->
+  <section id="gallery">
+    <div class="sec-head reveal">
+      <div class="script">with gratitude</div>
+      <h2>Why Pris Is Amazing</h2>
+      <p>Six little 3D symbols, drawn live on canvas — just like the magic Pris creates in class.</p>
+    </div>
+    <div class="cards">
+      <article class="card reveal"><canvas class="mini" data-obj="book"></canvas>
+        <h3>📖 Endless Wisdom</h3><p>Every lesson from Pris opens a new world — pages full of wonder and "aha!" moments.</p></article>
+      <article class="card reveal"><canvas class="mini" data-obj="apple"></canvas>
+        <h3>🍎 Patience &amp; Care</h3><p>Always ready to explain it one more time, with a smile that never fades.</p></article>
+      <article class="card reveal"><canvas class="mini" data-obj="pencil"></canvas>
+        <h3>✏️ Creative Spark</h3><p>Pris turns ordinary days into colourful ideas worth remembering forever.</p></article>
+      <article class="card reveal"><canvas class="mini" data-obj="star"></canvas>
+        <h3>⭐ Pure Inspiration</h3><p>A guiding star who makes every single student believe they can shine too.</p></article>
+      <article class="card reveal"><canvas class="mini" data-obj="heart"></canvas>
+        <h3>💖 Kindest Heart</h3><p>The warmth of the classroom — felt, appreciated, and never forgotten.</p></article>
+      <article class="card reveal"><canvas class="mini" data-obj="cap"></canvas>
+        <h3>🎓 True Guidance</h3><p>Cheering for every dream and preparing us for every tomorrow ahead.</p></article>
+    </div>
+  </section>
+
+  <!-- LETTER -->
+  <section id="letter">
+    <div class="sec-head reveal">
+      <div class="script">from our hearts</div>
+      <h2>A Letter For Pris</h2>
+      <p>Go on… tap the envelope to open it.</p>
+    </div>
+    <div class="flip reveal" id="flip">
+      <div class="flip-inner">
+        <div class="face front">
+          <span class="corner c1">✦</span><span class="corner c2">✦</span>
+          <span class="corner c3">✦</span><span class="corner c4">✦</span>
+          <canvas id="envCanvas" width="300" height="210" style="width:300px;max-width:80%;height:210px"></canvas>
+          <h3>For Pris, With Love</h3>
+          <div class="hint">tap to open ✦</div>
+        </div>
+        <div class="face back">
+          <span class="corner c1">✦</span><span class="corner c2">✦</span>
+          <span class="corner c3">✦</span><span class="corner c4">✦</span>
+          <div class="script">Dear Pris,</div>
+          <p class="letter-text">
+            Happy Teacher's Day! Thank you for making learning an adventure,
+            for believing in us even when we didn't believe in ourselves, and for
+            filling every lesson with patience, kindness and sparkle.
+            You don't just teach subjects — you shape hearts and futures.
+            The world is a better place because teachers like you are in it.
+          </p>
+          <div class="sign">— with love &amp; gratitude, your students ❤</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="heart">❤</span> &nbsp;Made with pure Canvas &amp; love for <b>Pris</b> — Happy Teacher's Day 2026
+  </footer>
+</div>
+
+<script>
+'use strict';
+/* ================= 3D MATH ================= */
+const TAU = Math.PI*2;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const rand=(a,b)=>a+Math.random()*(b-a);
+const dpr=Math.min(2,window.devicePixelRatio||1);
+function rotX(p,a){const c=Math.cos(a),s=Math.sin(a);return[p[0],p[1]*c-p[2]*s,p[1]*s+p[2]*c];}
+function rotY(p,a){const c=Math.cos(a),s=Math.sin(a);return[p[0]*c+p[2]*s,p[1],-p[0]*s+p[2]*c];}
+function rotZ(p,a){const c=Math.cos(a),s=Math.sin(a);return[p[0]*c-p[1]*s,p[0]*s+p[1]*c,p[2]];}
+
+/* ================= 3D SHAPE BUILDERS (pure canvas geometry) ================= */
+function makeBook(){
+  const v=[
+    [0,-0.15,-1.1],[0,-0.15,1.1],
+    [-1.6,0.35,-1.1],[-1.6,0.35,1.1],
+    [1.6,0.35,-1.1],[1.6,0.35,1.1],
+    [0,-0.45,-1.1],[0,-0.45,1.1],
+    [-1.6,0.05,-1.1],[-1.6,0.05,1.1],
+    [1.6,0.05,-1.1],[1.6,0.05,1.1]
+  ];
+  const e=[
+    [0,1],[2,3],[4,5],[0,2],[1,3],[0,4],[1,5],
+    [6,7],[8,9],[10,11],[6,8],[7,9],[6,10],[7,11],
+    [2,8],[3,9],[4,10],[5,11],[0,6],[1,7]
+  ];
+  return {v,e};
+}
+function makeApple(){
+  const v=[],e=[],N=220,r=0.95;
+  for(let i=0;i<N;i++){
+    const phi=Math.acos(1-2*(i+0.5)/N), th=Math.PI*(1+Math.sqrt(5))*i;
+    v.push([r*Math.sin(phi)*Math.cos(th), r*Math.cos(phi)*0.92, r*Math.sin(phi)*Math.sin(th)]);
+  }
+  v.push([0,0.88,0],[0.22,1.38,0.05]);
+  e.push([N,N+1,'#c2884e']);
+  return {v,e,dots:true,extra:2};
+}
+function makePencil(){
+  const s=0.22,L=1.5,T=2.15,v=[],e=[];
+  const c=[[-s,-s],[s,-s],[s,s],[-s,s]];
+  for(const [x,y] of c) v.push([x,y,-L]);      // 0-3 back
+  for(const [x,y] of c) v.push([x,y, L]);       // 4-7 front
+  v.push([0,0,T]);                              // 8 tip
+  for(let i=0;i<4;i++){
+    e.push([i,(i+1)%4,'#fb7185']);              // eraser ring
+    e.push([i+4,((i+1)%4)+4]);                  // front ring
+    e.push([i,i+4]);                            // sides
+    e.push([i+4,8,'#fdba74']);                  // sharpened tip
+  }
+  return {v,e};
+}
+function makeStar(){
+  const v=[],e=[],R=1.3,r=0.55;
+  for(let i=0;i<10;i++){
+    const a=-Math.PI/2+i*Math.PI/5, rad=i%2?r:R;
+    v.push([Math.cos(a)*rad,Math.sin(a)*rad,-0.18],[Math.cos(a)*rad,Math.sin(a)*rad,0.18]);
+  }
+  for(let i=0;i<10;i++){
+    const j=(i+1)%10;
+    e.push([i*2,j*2],[i*2+1,j*2+1],[i*2,i*2+1]);
+  }
+  return {v,e};
+}
+function makeHeart(){
+  const v=[],e=[],N=22;
+  for(let i=0;i<N;i++){
+    const t=i/N*TAU;
+    const x=16*Math.pow(Math.sin(t),3)/16;
+    const y=(13*Math.cos(t)-5*Math.cos(2*t)-2*Math.cos(3*t)-Math.cos(4*t))/16;
+    v.push([x,y,-0.22],[x,y,0.22]);
+  }
+  for(let i=0;i<N;i++){
+    const j=(i+1)%N;
+    e.push([i*2,j*2],[i*2+1,j*2+1],[i*2,i*2+1]);
+  }
+  return {v,e};
+}
+function makeCap(){
+  const v=[],e=[],b=1.35,h=0.12,s2=0.7;
+  for(const y of [h,-h]) for(const [x,z] of [[-b,-b],[b,-b],[b,b],[-b,b]]) v.push([x,y,z]); //0-7
+  for(const y of [-h,-0.85]) for(const [x,z] of [[-s2,-s2],[s2,-s2],[s2,s2],[-s2,s2]]) v.push([x,y,z]); //8-15
+  v.push([0,h+0.06,0]);                       //16 button
+  v.push([b*1.18,-0.4,b*1.18]);               //17 tassel end
+  e.push([0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]);
+  e.push([8,9],[9,10],[10,11],[11,8],[12,13],[13,14],[14,15],[15,12],[8,12],[9,13],[10,14],[11,15]);
+  e.push([16,3,'#ffd166'],[3,17,'#ffd166']);
+  return {v,e,tassel:17};
+}
+
+const book=makeBook();   book.color='#7dd3fc';
+const apple=makeApple(); apple.color='#fb7185';
+const pencil=makePencil();pencil.color='#fcd34d';
+const star=makeStar();   star.color='#fde047';
+const heart=makeHeart(); heart.color='#f472b6';
+const cap=makeCap();     cap.color='#a78bfa';
+
+/* ================= BACKGROUND SCENE ================= */
+const bg=document.getElementById('bg'), bgCtx=bg.getContext('2d');
+let bgW=0,bgH=0;
+function sizeBg(){bgW=window.innerWidth;bgH=window.innerHeight;
+  bg.width=bgW*dpr;bg.height=bgH*dpr;bgCtx.setTransform(dpr,0,0,dpr,0,0);}
+
+const scene=[
+  {def:book,   pos:[-2.6,-0.25,0.2], s:0.85, base:[0.35,-0.6,0],  spin:[0.22,0.5,0.05], bob:0.22, bs:0.8, ph:0.5},
+  {def:apple,  pos:[ 2.6, 0.55,-0.2],s:0.95, base:[0,0,0],        spin:[0.18,0.55,0],   bob:0.20, bs:1.1, ph:2.1},
+  {def:pencil, pos:[-2.1, 1.75,-0.6],s:0.80, base:[0.25,0.3,-0.9],spin:[0.12,0.4,0.08], bob:0.18, bs:0.9, ph:4.2},
+  {def:cap,    pos:[ 0.15,2.25,-0.7],s:0.85, base:[0.3,-0.5,0],   spin:[0.15,0.45,0],   bob:0.20, bs:0.7, ph:1.2},
+  {def:star,   pos:[ 2.4,-1.7,-0.4], s:0.80, base:[0,0,0],        spin:[0.10,0.75,0.15],bob:0.20, bs:1.3, ph:3.3},
+  {def:heart,  pos:[-0.3,-2.2,-0.5], s:0.85, base:[0,0,0],        spin:[0.12,0.6,0],    bob:0.22, bs:1.0, ph:5.0}
+];
+
+const stars=[];
+for(let i=0;i<160;i++) stars.push({x:rand(-1,1),y:rand(-1,1),z:rand(0.12,1),v:rand(0.0012,0.0034)});
+
+let mx=0,my=0,gRX=0,gRY=0;
+window.addEventListener('pointermove',e=>{
+  mx=e.clientX/bgW-0.5; my=e.clientY/bgH-0.5;
+  const now=performance.now();
+  if(now-lastSpark>42){lastSpark=now;
+    sparkles.push({x:e.clientX,y:e.clientY,vx:rand(-.5,.5),vy:rand(-1.1,-.3),life:32,max:32,
+      size:rand(1.5,4.5),color:Math.random()<.5?'#ffd166':'#ffffff'});
+  }
+});
+
+function drawObjPts(ctx,def,pts,alpha,lw){
+  ctx.save(); ctx.globalCompositeOperation='lighter';
+  if(def.dots){
+    const n=pts.length-(def.extra||0);
+    for(let i=0;i<n;i++){const p=pts[i];
+      ctx.globalAlpha=clamp((p[2]-0.5)/0.95,0,1)*alpha*0.85;
+      ctx.fillStyle=def.color;
+      ctx.beginPath();ctx.arc(p[0],p[1],Math.max(0.6,lw*0.9*p[2]),0,TAU);ctx.fill();}
+  }
+  for(const e of def.e){
+    const A=pts[e[0]],B=pts[e[1]],f=(A[2]+B[2])/2;
+    ctx.globalAlpha=clamp((f-0.5)/0.95,0,1)*alpha;
+    ctx.strokeStyle=e[2]||def.color; ctx.lineWidth=Math.max(.6,lw*f);
+    ctx.beginPath();ctx.moveTo(A[0],A[1]);ctx.lineTo(B[0],B[1]);ctx.stroke();
+  }
+  if(def.tassel!=null){const p=pts[def.tassel];
+    ctx.globalAlpha=alpha;ctx.fillStyle='#ffd166';
+    ctx.beginPath();ctx.arc(p[0],p[1],lw*1.7*p[2],0,TAU);ctx.fill();}
+  ctx.restore();
+}
+
+function drawBg(t){
+  bgCtx.clearRect(0,0,bgW,bgH);
+  const cx=bgW/2, cy=bgH*0.5;
+  // depth vignette
+  const vg=bgCtx.createRadialGradient(cx,cy*0.9,Math.min(bgW,bgH)*0.15,cx,cy,Math.max(bgW,bgH)*0.75);
+  vg.addColorStop(0,'rgba(120,80,220,0.10)');vg.addColorStop(1,'rgba(0,0,0,0.30)');
+  bgCtx.fillStyle=vg;bgCtx.fillRect(0,0,bgW,bgH);
+  // warp starfield
+  bgCtx.save();bgCtx.globalCompositeOperation='lighter';
+  for(let i=0;i<stars.length;i++){const s=stars[i];
+    s.z-=s.v; if(s.z<=0.03){s.z=1;s.x=rand(-1,1);s.y=rand(-1,1);}
+    const k=0.5/s.z, sxp=cx+s.x*k*bgW*0.55, syp=cy+s.y*k*bgH*0.55;
+    if(sxp<-20||sxp>bgW+20||syp<-20||syp>bgH+20){s.z=1;continue;}
+    bgCtx.globalAlpha=(1-s.z)*0.9*(0.65+0.35*Math.sin(t*2.5+i));
+    bgCtx.fillStyle=i%7===0?'#ffd166':(i%5===0?'#ff9ecb':'#cfd8ff');
+    bgCtx.beginPath();bgCtx.arc(sxp,syp,(1-s.z)*2.4+0.3,0,TAU);bgCtx.fill();
+  }
+  bgCtx.restore();
+  // floating 3D school objects
+  gRY+=((mx*0.5)-gRY)*0.05; gRX+=((my*0.35)-gRX)*0.05;
+  const unit=Math.min(bgW,bgH)*0.155, sx=clamp(bgW/bgH*0.8,0.5,1);
+  const items=scene.map(o=>{
+    const rx=o.base[0]+t*o.spin[0], ry=o.base[1]+t*o.spin[1], rz=o.base[2]+t*o.spin[2];
+    const bobY=Math.sin(t*o.bs+o.ph)*o.bob;
+    let pv=rotY([o.pos[0]*sx,o.pos[1]+bobY,o.pos[2]],gRY); pv=rotX(pv,gRX);
+    const pts=new Array(o.def.v.length); let zSum=0;
+    for(let i=0;i<o.def.v.length;i++){
+      let q=rotZ(o.def.v[i],rz); q=rotY(q,ry); q=rotX(q,rx);
+      q=rotY(q,gRY); q=rotX(q,gRX);
+      const wx=q[0]*o.s+pv[0], wy=q[1]*o.s+pv[1], wz=q[2]*o.s+pv[2];
+      const f=6/(6+wz);
+      pts[i]=[cx+wx*f*unit, cy-wy*f*unit, f]; zSum+=wz;
+    }
+    return {o,pts,z:zSum/o.def.v.length};
+  });
+  items.sort((a,b)=>b.z-a.z);
+  for(const it of items) drawObjPts(bgCtx,it.o.def,it.pts,0.9,2.1);
+}
+
+/* ================= MINI CANVASES (gallery) ================= */
+const RADII={book:1.95,apple:1.45,pencil:2.4,star:1.4,heart:1.15,cap:2.05};
+const BASES={book:[0.4,-0.7,0],apple:[0,0,0],pencil:[0.3,0.4,-0.9],star:[0,0,0],heart:[0,0,0],cap:[0.35,-0.6,0]};
+const SPINS={book:[0.25,0.6,0.05],apple:[0.2,0.7,0],pencil:[0.15,0.5,0.1],star:[0.1,0.9,0.2],heart:[0.15,0.8,0],cap:[0.2,0.6,0]};
+const DEFS={book,apple,pencil,star,heart,cap};
+const minis=[];
+document.querySelectorAll('.mini').forEach(cv=>{
+  const key=cv.dataset.obj;
+  minis.push({cv,ctx:cv.getContext('2d'),key,w:0,h:0});
+});
+function sizeMinis(){
+  for(const m of minis){
+    m.w=m.cv.clientWidth; m.h=m.cv.clientHeight;
+    m.cv.width=m.w*dpr; m.cv.height=m.h*dpr; m.ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+}
+function drawMinis(t){
+  for(const m of minis){
+    if(!m.w) continue;
+    m.ctx.clearRect(0,0,m.w,m.h);
+    const def=DEFS[m.key], b=BASES[m.key], s=SPINS[m.key];
+    const ang={rx:b[0]+t*s[0], ry:b[1]+t*s[1], rz:b[2]+t*s[2]};
+    const scale=(Math.min(m.w,m.h)/2-14)/RADII[m.key];
+    const pts=def.v.map(p=>{
+      let q=rotZ(p,ang.rz);q=rotY(q,ang.ry);q=rotX(q,ang.rx);
+      const f=6/(6+q[2]);
+      return [m.w/2+q[0]*f*scale, m.h/2-q[1]*f*scale, f];
+    });
+    drawObjPts(m.ctx,def,pts,1,2.2);
+  }
+}
+
+/* ================= ENVELOPE CANVAS ================= */
+const envCv=document.getElementById('envCanvas');
+const envCtx=envCv.getContext('2d');
+envCv.width=300*dpr; envCv.height=210*dpr; envCtx.setTransform(dpr,0,0,dpr,0,0);
+function rr(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function heartPath(ctx,x,y,s){ctx.save();ctx.translate(x,y);ctx.scale(s/12,s/12);
+  ctx.beginPath();ctx.moveTo(0,5);
+  ctx.bezierCurveTo(-9,-3,-5,-12,0,-6);ctx.bezierCurveTo(5,-12,9,-3,0,5);
+  ctx.closePath();ctx.restore();}
+function drawEnv(t){
+  envCtx.clearRect(0,0,300,210);
+  const cx=150, cy=112, W=190, H=118, x0=cx-W/2, y0=cy-H/2;
+  const g=envCtx.createRadialGradient(cx,cy,10,cx,cy,W);
+  g.addColorStop(0,'rgba(255,209,102,0.28)');g.addColorStop(1,'rgba(255,209,102,0)');
+  envCtx.fillStyle=g;envCtx.fillRect(0,0,300,210);
+  rr(envCtx,x0,y0,W,H,12);
+  const bg=envCtx.createLinearGradient(x0,y0,x0,y0+H);
+  bg.addColorStop(0,'#fff7e0');bg.addColorStop(1,'#ffe3a3');
+  envCtx.fillStyle=bg;envCtx.fill();
+  envCtx.strokeStyle='rgba(180,120,20,0.55)';envCtx.lineWidth=2;envCtx.stroke();
+  envCtx.strokeStyle='rgba(180,120,20,0.3)';
+  envCtx.beginPath();envCtx.moveTo(x0,y0+H);envCtx.lineTo(cx,cy+H*0.05);envCtx.lineTo(x0+W,y0+H);envCtx.stroke();
+  envCtx.beginPath();envCtx.moveTo(x0,y0);envCtx.lineTo(cx,cy+H*0.12+Math.sin(t*2)*2);envCtx.lineTo(x0+W,y0);envCtx.closePath();
+  const fg=envCtx.createLinearGradient(0,y0,0,cy);
+  fg.addColorStop(0,'#ffe9b8');fg.addColorStop(1,'#ffd166');
+  envCtx.fillStyle=fg;envCtx.fill();envCtx.strokeStyle='rgba(180,120,20,0.5)';envCtx.stroke();
+  const hs=1+Math.sin(t*3)*0.13;
+  heartPath(envCtx,cx,cy+H*0.12,13*hs);
+  envCtx.fillStyle='#fb4d6d';envCtx.fill();
+  envCtx.fillStyle='rgba(255,255,255,0.7)';
+  envCtx.beginPath();envCtx.arc(cx-4*hs,cy+H*0.12-5*hs,1.8*hs,0,TAU);envCtx.fill();
+}
+
+/* ================= CONFETTI / SPARKLES ================= */
+const fx=document.getElementById('fx'), fxCtx=fx.getContext('2d');
+let fxW=0,fxH=0;
+function sizeFx(){fxW=window.innerWidth;fxH=window.innerHeight;
+  fx.width=fxW*dpr;fx.height=fxH*dpr;fxCtx.setTransform(dpr,0,0,dpr,0,0);}
+const PALETTE=['#ffd166','#ff6b9d','#a78bfa','#67e8f9','#86efac','#fb7185','#fde68a'];
+const confetti=[],sparkles=[];let lastSpark=0;
+function burst(x,y,n=90){
+  for(let i=0;i<n;i++){
+    const a=Math.random()*TAU, sp=rand(2,9);
+    confetti.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-3,g:rand(0.14,0.22),
+      w:rand(5,11),h:rand(8,15),rot:Math.random()*TAU,vr:rand(-.3,.3),
+      flut:Math.random()*TAU,vf:rand(0.08,0.2),
+      color:PALETTE[i%PALETTE.length],life:rand(90,150),
+      shape:Math.random()<0.25?'circle':'rect'});
+  }
+}
+function drawFx(){
+  fxCtx.clearRect(0,0,fxW,fxH);
+  for(let i=confetti.length-1;i>=0;i--){const c=confetti[i];
+    c.vy+=c.g;c.vx*=0.992;c.x+=c.vx;c.y+=c.vy;c.rot+=c.vr;c.flut+=c.vf;c.life--;
+    if(c.life<=0||c.y>fxH+60){confetti.splice(i,1);continue;}
+    fxCtx.save();fxCtx.translate(c.x,c.y);fxCtx.rotate(c.rot);
+    fxCtx.scale(1,Math.cos(c.flut)*0.9+0.1);
+    fxCtx.globalAlpha=clamp(c.life/40,0,1);fxCtx.fillStyle=c.color;
+    if(c.shape==='circle'){fxCtx.beginPath();fxCtx.arc(0,0,c.w*0.45,0,TAU);fxCtx.fill();}
+    else fxCtx.fillRect(-c.w/2,-c.h/2,c.w,c.h);
+    fxCtx.restore();
+  }
+  fxCtx.save();fxCtx.globalCompositeOperation='lighter';
+  for(let i=sparkles.length-1;i>=0;i--){const s=sparkles[i];
+    s.x+=s.vx;s.y+=s.vy;s.life--;
+    if(s.life<=0){sparkles.splice(i,1);continue;}
+    const a=s.life/s.max, r=s.size*(0.6+a);
+    fxCtx.globalAlpha=a;fxCtx.strokeStyle=s.color;fxCtx.lineWidth=1.3;
+    fxCtx.beginPath();fxCtx.moveTo(s.x-r,s.y);fxCtx.lineTo(s.x+r,s.y);
+    fxCtx.moveTo(s.x,s.y-r);fxCtx.lineTo(s.x,s.y+r);fxCtx.stroke();
+  }
+  fxCtx.restore();
+}
+
+/* ================= UI WIRING ================= */
+const track=document.getElementById('ribbonTrack');
+const items=['Happy Teacher\'s Day','Thank you Pris','Best teacher ever','You inspire us','Pris ✦ 2026'];
+let html='';
+for(let r=0;r<4;r++) for(const it of items) html+='<span>✦ '+it+'</span>';
+track.innerHTML=html;
+
+document.getElementById('partyBtn').addEventListener('click',e=>{
+  const r=e.currentTarget.getBoundingClientRect();
+  burst(r.left+r.width/2, r.top+r.height/2, 120);
+  setTimeout(()=>burst(rand(fxW*0.2,fxW*0.8), fxH*0.28, 80), 250);
+  setTimeout(()=>burst(rand(fxW*0.2,fxW*0.8), fxH*0.22, 80), 520);
+});
+document.addEventListener('pointerdown',e=>{
+  if(e.target.closest('a,button,.flip')) return;
+  burst(e.clientX,e.clientY,26);
+});
+const flip=document.getElementById('flip');
+let opened=false;
+flip.addEventListener('click',()=>{
+  flip.classList.toggle('flipped');
+  if(!opened && flip.classList.contains('flipped')){
+    opened=true;
+    const r=flip.getBoundingClientRect();
+    burst(r.left+r.width/2, r.top+r.height/2, 90);
+  }
+});
+// 3D tilt on gallery cards
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    const px=(e.clientX-r.left)/r.width-0.5, py=(e.clientY-r.top)/r.height-0.5;
+    card.style.transform=`translateY(-8px) rotateX(${-py*10}deg) rotateY(${px*12}deg)`;
+  });
+  card.addEventListener('mouseleave',()=>card.style.transform='');
+});
+// scroll reveal
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add('show');io.unobserve(e.target);}
+}),{threshold:0.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ================= MAIN LOOP ================= */
+function resizeAll(){sizeBg();sizeFx();sizeMinis();}
+window.addEventListener('resize',resizeAll);
+resizeAll();
+setTimeout(()=>burst(fxW/2,fxH*0.35,100),800);
+(function autoRain(){setTimeout(()=>{burst(rand(fxW*0.15,fxW*0.85),fxH*0.15,36);autoRain();},rand(11000,18000));})();
+function loop(now){
+  const t=now*0.001;
+  drawBg(t); drawMinis(t); drawEnv(t); drawFx();
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+  </html>
